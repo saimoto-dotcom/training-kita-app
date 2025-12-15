@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MemberRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('example');
+Route::get('/member_registration', [MemberRegisterController::class, 'create']);
+Route::post('/member_registration', [MemberRegisterController::class, 'store']);
+
+Route::get('/articles', function () {
+    return view('member.articles.index');
 });
