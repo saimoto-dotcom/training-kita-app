@@ -11,6 +11,7 @@ services:
       - TZ=Asia/Tokyo
     volumes:
       - ./data/mysql:/var/lib/mysql:cached
+    platform: linux/amd64
 
   kita:
     container_name: kita
