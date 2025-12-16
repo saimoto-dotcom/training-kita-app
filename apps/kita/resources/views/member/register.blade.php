@@ -27,6 +27,8 @@
                             type="text"
                             name="name"
                             class="form-control"
+                            required
+                            maxlength="255"
                             value="{{ old('name') }}">
                         @error('name')
                         <div class="text-danger small">{{ $message }}</div>
@@ -39,6 +41,8 @@
                             type="email"
                             name="email"
                             class="form-control"
+                            required
+                            maxlength="255"
                             value="{{ old('email') }}">
                         @error('email')
                         <div class="text-danger small">{{ $message }}</div>
@@ -50,7 +54,10 @@
                         <input
                             type="password"
                             name="password"
-                            class="form-control">
+                            class="form-control"
+                            required
+                            minlength="8"
+                            maxlength="255">
                         @error('password')
                         <div class="text-danger small">{{ $message }}</div>
                         @enderror
@@ -61,7 +68,10 @@
                         <input
                             type="password"
                             name="password_confirmation"
-                            class="form-control">
+                            class="form-control"
+                            required
+                            minlength="8"
+                            maxlength="255">
                         @error('password_confirmation')
                         <div class="text-danger small">{{ $message }}</div>
                         @enderror

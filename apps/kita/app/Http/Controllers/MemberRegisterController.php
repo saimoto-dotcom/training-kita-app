@@ -28,25 +28,6 @@ class MemberRegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //　必須チェック
-        $errors = [];
-
-        if (! $request->filled('name')) {
-            $errors['name'] = 'ユーザー名を入力してください。';
-        }
-
-        if (! $request->filled('email')) {
-            $errors['email'] = 'メールアドレスを入力してください。';
-        }
-
-        if (! $request->filled('password')) {
-            $errors['password'] = 'パスワードを入力してください。';
-        }
-
-        if (! $request->filled('password_confirmation')) {
-            $errors['password_confirmation'] = 'パスワード（確認用）を入力してください。';
-        }
-
         // パスワード不一致チェック
         if (
             $request->filled('password') &&
