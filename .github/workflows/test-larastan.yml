@@ -29,7 +29,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache-composer.outputs.cache-hit != 'true'
-        run: docker-compose run -v ${{ github.workspace }}/apps/kita/vendor:/var/www/html/vendor kita composer install --prefer-dist --no-progress
+        run: docker compose run -v ${{ github.workspace }}/apps/kita/vendor:/var/www/html/vendor kita composer install --prefer-dist --no-progress
 
       - name: Run PHP-CS-Fixer
         # CS Fixerにより整形されたコードを検知する
