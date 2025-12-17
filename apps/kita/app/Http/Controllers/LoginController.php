@@ -39,7 +39,7 @@ class LoginController extends Controller
         // ログイン処理成功
         $request->session()->regenerate();
 
-        return redirect('/articles');
+        return redirect()->route('articles');
     }
 
     /**
@@ -54,6 +54,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }

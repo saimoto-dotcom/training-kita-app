@@ -18,7 +18,7 @@
                 <h4 class="mb-3">Kita会員登録</h4>
                 <hr>
 
-                <form method="POST" action="/member_registration">
+                <form method="POST" action="{{ route('member.register.store') }}">
                     @csrf
 
                     <div class="mb-3">

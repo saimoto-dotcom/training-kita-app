@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemberRegisterRequest;
 use App\Models\Member;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,49 +22,23 @@ class MemberRegisterController extends Controller
     /**
      * Handle a registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\MemberRegisterRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(MemberRegisterRequest $request)
     {
-        // パスワード不一致チェック
-        if (
-            $request->filled('password') &&
-            $request->filled('password_confirmation') &&
-            $request->input('password') !== $request->input('password_confirmation')
-        ) {
-            $errors['password'] = '入力されたパスワードが一致していません。';
-        }
+        // バリデーション済みデータのみ取得
+        $validated = $request->validated();
 
-        // エラー表示
-        if (! empty($errors)) {
-            return back()
-                ->withInput()
-                ->withErrors($errors);
-        }
+        // DB登録処理
+        $member = Member::create([
+            'name' => trim($validated['name']),
+            'email' => trim($validated['email']),
+            'password' => Hash::make($validated['password']),
+        ]);
+        // 自動ログイン処理
+        Auth::login($member);
 
-        try {
-            // DB登録処理
-            $member = Member::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
-            ]);
-
-            // 自動ログイン処理
-            Auth::login($member);
-
-            return redirect('/articles');
-        } catch (QueryException $e) {
-            if ($e->getCode() === '23000') { // UNIQUE制約違反
-                return back()
-                    ->withInput()
-                    ->withErrors([
-                        'email' => 'すでに登録されているメールアドレスです。',
-                    ]);
-            }
-
-            throw $e; // それ以外は本当のエラー
-        }
+        return redirect()->route('articles');
     }
 }

@@ -19,12 +19,12 @@
                 <hr>
                 <div class="text-end mb-3">
                     新規会員登録は
-                    <a href="/member_registration" class="fw-bold text-decoration-none">
+                    <a href="{{ route('member.register') }}" class="fw-bold text-decoration-none">
                         こちら
                     </a>
                 </div>
 
-                <form method="POST" action="/login">
+                <form method="POST" action="{{ route('login') }}">
                     @csrf
 
                     <div class="mb-3">
