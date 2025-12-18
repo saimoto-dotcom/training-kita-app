@@ -1,0 +1,151 @@
+/* ヘッダー全体 */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* 左: ロゴ */
+.header__left {
+    flex-shrink: 0; /* 縮小しない */
+}
+
+.header__logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #28a745;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border-radius: 50px;
+    text-decoration: none;
+}
+
+/* 中央: 検索フォーム */
+.header__center {
+    flex: 1; /* 利用可能なスペースを取る */
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem;
+}
+
+.header__search-form {
+    display: flex;
+    width: 100%;       /* 親要素の幅いっぱい */
+    max-width: 800px; /* 最大幅 */
+}
+
+.header__search-form input {
+    flex: 1;              /* 入力欄が残り幅を取る */
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-right: none;   /* ボタンと密着させる */
+    border-radius: 0.25rem 0 0 0.25rem;
+    height: 38px;
+}
+
+.header__search-btn {
+    background-color: #28a745;
+    color: #fff;
+    border: 1px solid #28a745;
+    border-radius: 0 0.25rem 0.25rem 0;
+    padding: 0 1rem;
+    cursor: pointer;
+    height: 38px;
+
+    display: flex;           /* 横方向のflexにする */
+    align-items: center;     /* 縦中央 */
+    justify-content: center; /* 横中央 */
+    white-space: nowrap;     /* 折り返さない */
+    line-height: 1;          /* 高さを文字に合わせる */
+}
+
+/* 右: 記事作成 + プロフィール */
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0; /* 縮小しない */
+}
+
+.header__create-btn {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #28a745;
+    color: #333;
+    border-radius: 0.25rem;
+    text-decoration: none;
+}
+
+/* プロフィールアイコンボタン */
+.header__profile-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #28a745;
+    color: #fff;
+
+    border: none;
+    border-radius: 8px;     /* 角丸の正方形 */
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+}
+
+/* Bootstrap が自動で付ける ▼ を完全に消す */
+.header__profile-btn::after {
+    display: none !important;
+}
+
+/* アイコンサイズ調整 */
+.header__profile-btn i {
+    font-size: 1.25rem;
+}
+
+/* =========================
+   モバイル対応
+   ========================= */
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .header__left {
+        order: 1;
+    }
+
+    .header__right {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .header__center {
+        order: 3;
+        width: 100%;
+        margin: 0.5rem 0 0;
+        justify-content: center;
+    }
+
+    .header__search-form {
+        max-width: none;
+        width: 100%;
+    }
+
+    .header__create-btn {
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+        white-space: nowrap;
+    }
+}
+
