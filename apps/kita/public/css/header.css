@@ -10,7 +10,7 @@
 
 /* 左: ロゴ */
 .header__left {
-    flex-shrink: 0; /* 縮小しない */
+    flex-shrink: 0;
 }
 
 .header__logo {
@@ -28,7 +28,7 @@
 
 /* 中央: 検索フォーム */
 .header__center {
-    flex: 1; /* 利用可能なスペースを取る */
+    flex: 1;
     display: flex;
     justify-content: center;
     margin: 0 1rem;
@@ -36,16 +36,16 @@
 
 .header__search-form {
     display: flex;
-    width: 100%;       /* 親要素の幅いっぱい */
-    max-width: 800px; /* 最大幅 */
+    width: 100%;
+    max-width: 800px;
 }
 
 .header__search-form input {
-    flex: 1;              /* 入力欄が残り幅を取る */
+    flex: 1;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     border: 1px solid #ced4da;
-    border-right: none;   /* ボタンと密着させる */
+    border-right: none;
     border-radius: 0.25rem 0 0 0.25rem;
     height: 38px;
 }
@@ -59,11 +59,11 @@
     cursor: pointer;
     height: 38px;
 
-    display: flex;           /* 横方向のflexにする */
-    align-items: center;     /* 縦中央 */
-    justify-content: center; /* 横中央 */
-    white-space: nowrap;     /* 折り返さない */
-    line-height: 1;          /* 高さを文字に合わせる */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    line-height: 1;
 }
 
 /* 右: 記事作成 + プロフィール */
@@ -71,7 +71,7 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    flex-shrink: 0; /* 縮小しない */
+    flex-shrink: 0;
 }
 
 .header__create-btn {
@@ -89,15 +89,12 @@
     height: 40px;
     background-color: #28a745;
     color: #fff;
-
     border: none;
-    border-radius: 8px;     /* 角丸の正方形 */
+    border-radius: 8px;
     padding: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
 }
 
@@ -148,4 +145,3 @@
         white-space: nowrap;
     }
 }
-

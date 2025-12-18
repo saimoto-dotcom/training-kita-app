@@ -1,8 +1,8 @@
 /* 記事タイトル */
 .article-title {
-    text-decoration: none;   /* 下線を消す */
-    font-weight: 700;        /* Bold */
-    color: #212529;          /* 濃いグレー（ほぼ黒） */
+    text-decoration: none;
+    font-weight: 700;
+    color: #212529;
 }
 
 /* タグの青背景と余白 */
@@ -21,7 +21,7 @@
 .article-block {
     padding-bottom: 1rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #e0e0e0; /* 薄いグレー */
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .article-block:last-child {
@@ -36,15 +36,14 @@
 
 /* ページネーション全体の枠 */
 .pagination .page-link {
-    border: 1px solid #28a745; /* 枠の色 */
-    color: #28a745; /* 数字と Previous/Next の文字色 */
+    border: 1px solid #28a745;
+    color: #28a745;
 }
 
-/* 現在ページだけ背景色を少し暗めの緑に、文字は白に */
 .pagination .page-item.active .page-link {
-    background-color: #66bb6a; /* 背景は少し暗めの緑 */
-    border-color: #28a745;     /* 枠はそのまま */
-    color: #fff;               /* 文字色を白に */
+    background-color: #66bb6a;
+    border-color: #28a745;
+    color: #fff;
 }
 
 /* 各ページリンク */
@@ -55,6 +54,5 @@
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
-    border-color: #b7e4c7; /* 薄い緑 */
+    border-color: #b7e4c7;
 }
-
