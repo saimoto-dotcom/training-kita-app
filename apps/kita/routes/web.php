@@ -26,15 +26,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/articles', [ArticleController::class, 'index'])
     ->name('articles');
 
-// 記事作成（ログイン必須）
+// 記事関連（作成・投稿・編集はログイン必須）
 Route::middleware('auth')->group(function () {
+
+    // 記事作成
     Route::get('/articles/create', [ArticleController::class, 'create'])
         ->name('articles.create');
+    // 記事投稿処理
+    Route::post('/articles', [ArticleController::class, 'store'])
+        ->name('articles.store');
+    // 記事編集画面
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])
+        ->name('articles.edit');
 });
 
 // 記事詳細（未ログイン可）
 Route::get('/articles/{article}', [ArticleController::class, 'show'])
     ->name('articles.show');
+
 
 // =========================
 // 認証状態による画面制御
