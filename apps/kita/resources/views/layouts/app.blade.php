@@ -23,9 +23,7 @@
 
 <body>
     {{-- 共通ヘッダー --}}
-    @auth
     <x-search-menu />
-    @endauth
 
     {{-- 各ページの中身 --}}
     <main class="container mt-5 pt-4">

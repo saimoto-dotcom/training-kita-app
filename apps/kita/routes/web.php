@@ -17,44 +17,53 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// 未ログインユーザーのみアクセス可能なルート
-Route::middleware('guest')->group(function () {
-    // ログイン画面表示
-    Route::get('/login', [LoginController::class, 'create'])->name('login');
+// =========================
+// 記事（一覧・作成・詳細）
+// ※ 静的パスは可変パラメータより先に定義する
+// =========================
 
-    // ログイン処理
-    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+// 記事一覧（未ログイン可）
+Route::get('/articles', [ArticleController::class, 'index'])
+    ->name('articles');
 
-    // 会員登録画面表示
-    Route::get('/member_registration', [MemberRegisterController::class, 'create'])->name('member.register');
-
-    // 会員登録処理
-    Route::post('/member_registration', [MemberRegisterController::class, 'store'])->name('member.register.store');
-});
-
-// ログイン済みユーザーのみアクセス可能なルート
+// 記事作成（ログイン必須）
 Route::middleware('auth')->group(function () {
-    // ログアウト処理
-    Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
-
-    // =========================
-    // 記事
-    // =========================
-    // 記事一覧
-    Route::get('/articles', [ArticleController::class, 'index'])
-        ->name('articles');
-
-    // 記事作成画面
     Route::get('/articles/create', [ArticleController::class, 'create'])
         ->name('articles.create');
+});
 
-    // 記事詳細
-    Route::get('/articles/{article}', [ArticleController::class, 'show'])
-        ->name('articles.show');
+// 記事詳細（未ログイン可）
+Route::get('/articles/{article}', [ArticleController::class, 'show'])
+    ->name('articles.show');
 
-    // =========================
-    // プロフィール
-    // =========================
-    // プロフィール
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+// =========================
+// 認証状態による画面制御
+// =========================
+
+// 未ログイン時のみアクセス可能（ログイン・会員登録）
+Route::middleware('guest')->group(function () {
+
+    // ログイン
+    Route::get('/login', [LoginController::class, 'create'])
+        ->name('login');
+    Route::post('/login', [LoginController::class, 'store'])
+        ->name('login.store');
+
+    // 会員登録
+    Route::get('/member_registration', [MemberRegisterController::class, 'create'])
+        ->name('member.register');
+    Route::post('/member_registration', [MemberRegisterController::class, 'store'])
+        ->name('member.register.store');
+});
+
+// ログイン済みユーザーのみアクセス可能（アカウント関連）
+Route::middleware('auth')->group(function () {
+
+    // ログアウト
+    Route::get('/logout', [LoginController::class, 'destroy'])
+        ->name('logout');
+
+    // プロフィール編集
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
 });
