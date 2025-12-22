@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/articles/{article}', [ArticleController::class, 'show'])
     ->name('articles.show');
 
-
 // =========================
 // 認証状態による画面制御
 // =========================
