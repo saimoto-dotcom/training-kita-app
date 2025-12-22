@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('article_article_tag', function (Blueprint $table) {
+        Schema::create('article_article_tags', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('article_id')
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_article_tag');
+        Schema::dropIfExists('article_article_tags');
     }
 };

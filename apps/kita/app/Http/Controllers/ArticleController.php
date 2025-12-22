@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\AppConsts;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -26,7 +27,7 @@ class ArticleController extends Controller
                     ->orWhere('contents', 'like', "%{$search}%");
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(AppConsts::ARTICLES_PER_PAGE);
 
         // Blade に渡す
         return view('member.articles.index', compact('search', 'articles'));
