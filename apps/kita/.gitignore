@@ -30,10 +30,7 @@ resources/views/vendor/pagination/simple-bootstrap-5.blade.php
 resources/views/vendor/pagination/simple-default.blade.php
 resources/views/vendor/pagination/simple-tailwind.blade.php
 resources/views/vendor/pagination/tailwind.blade.php
-database/factories/ArticleFactory.php
-database/factories/ArticleTagFactory.php
-database/factories/MemberFactory.php
 database/migrations/2018_08_08_100000_create_telescope_entries_table.php
-database/seeders/ArticleSeeder.php
+database/seeders/UserSeeder.php
 app/Providers/TelescopeServiceProvider.php
 config/telescope.php
