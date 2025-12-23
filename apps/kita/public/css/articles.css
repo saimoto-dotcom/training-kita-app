@@ -1,0 +1,58 @@
+/* 記事タイトル */
+.article-title {
+    text-decoration: none;
+    font-weight: 700;
+    color: #212529;
+}
+
+/* タグの青背景と余白 */
+.tag {
+    display: inline-block;
+    background-color: #0d6efd;
+    color: #fff;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.875rem;
+}
+
+/* 記事ブロックの区切り線 */
+.article-block {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.article-block:last-child {
+    border-bottom: none;
+}
+
+/* ページャー全体 */
+.pagination {
+    justify-content: center;
+    --bs-pagination-font-size: 0.9rem;
+}
+
+/* ページネーション全体の枠 */
+.pagination .page-link {
+    border: 1px solid #28a745;
+    color: #28a745;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #66bb6a;
+    border-color: #28a745;
+    color: #fff;
+}
+
+/* 各ページリンク */
+.pagination .page-link {
+    min-width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    border-color: #b7e4c7;
+}

@@ -4,6 +4,9 @@
 /public/storage
 /storage/*.key
 /vendor
+!resources/views/vendor/
+!resources/views/vendor/pagination/
+!resources/views/vendor/pagination/**
 .env
 .env.backup
 .env.production
@@ -17,3 +20,17 @@ yarn-error.log
 /.idea
 /.vscode
 .php-cs-fixer.cache
+
+# 不要ファイルを無視
+resources/views/vendor/pagination/bootstrap-5.blade.php
+resources/views/vendor/pagination/default.blade.php
+resources/views/vendor/pagination/semantic-ui.blade.php
+resources/views/vendor/pagination/simple-bootstrap-4.blade.php
+resources/views/vendor/pagination/simple-bootstrap-5.blade.php
+resources/views/vendor/pagination/simple-default.blade.php
+resources/views/vendor/pagination/simple-tailwind.blade.php
+resources/views/vendor/pagination/tailwind.blade.php
+database/migrations/2018_08_08_100000_create_telescope_entries_table.php
+database/seeders/UserSeeder.php
+app/Providers/TelescopeServiceProvider.php
+config/telescope.php
