@@ -38,9 +38,9 @@
         </div>
     </div>
     @endforeach
-</div>
 
-<!-- ページネーション -->
-{{ $articles->onEachSide(1)->appends(request()->query())->links('pagination::bootstrap-4') }}
+    <!-- ページネーション -->
+    {{ $articles->onEachSide(1)->appends(request()->query())->links('pagination::bootstrap-4') }}
+</div>
 
 @endsection
