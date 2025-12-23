@@ -40,7 +40,7 @@
     @endforeach
 
     <!-- ページネーション -->
-    {{ $articles->onEachSide(1)->appends(request()->query())->links('pagination::bootstrap-4') }}
+    {{ $articles->appends(request()->query())->links('pagination::bootstrap-4') }}
 </div>
 
 @endsection
