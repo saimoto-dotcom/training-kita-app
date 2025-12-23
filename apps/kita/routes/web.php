@@ -26,10 +26,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/articles', [ArticleController::class, 'index'])
     ->name('articles');
 
-// 記事作成（ログイン必須）
+// 記事関連（ログイン必須）
 Route::middleware('auth')->group(function () {
-    Route::get('/articles/create', [ArticleController::class, 'create'])
-        ->name('articles.create');
+    Route::resource('articles', ArticleController::class)
+        ->only(['create', 'store', 'edit']);
 });
 
 // 記事詳細（未ログイン可）

@@ -1,3 +1,6 @@
+/* =========================
+   記事一覧
+   ========================= */
 /* 記事タイトル */
 .article-title {
     text-decoration: none;
@@ -55,4 +58,47 @@
     justify-content: center;
     font-size: 0.9rem;
     border-color: #b7e4c7;
+}
+
+/* =========================
+   記事投稿
+   ========================= */
+/* 入力フォーム */ 
+.form-control--green {
+    border: 1px solid #7ad03a;
+}
+
+.form-control--green:focus {
+    border-color: #6cc24a;
+    box-shadow: 0 0 0 0.2rem rgba(122, 208, 58, 0.25);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+}
+
+/* 記事投稿 ボタン */ 
+.btn-article-submit {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+
+    padding: 8px 24px;
+    border-radius: 9999px;
+}
+
+.btn-article-submit:hover {
+    background-color: #218838;
+    border-color: #218838;
+    color: #fff;
+}
+
+.btn-article-submit:focus,
+.btn-article-submit:active {
+    background-color: #218838;
+    border-color: #218838;
+    box-shadow: 0 0 0 0.2rem rgba(122, 208, 58, 0.35);
+    color: #fff;
 }
