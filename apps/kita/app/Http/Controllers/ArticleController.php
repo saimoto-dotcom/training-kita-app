@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Consts\AppConsts;
 use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\ArticleTag;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -55,7 +57,7 @@ class ArticleController extends Controller
      * @param  \App\Http\Requests\ArticleRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ArticleRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(ArticleRequest $request): RedirectResponse
     {
         // バリデーション済みのデータのみを取得
         $validated = $request->validated();
@@ -94,8 +96,50 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\View\View
      */
-    public function edit(Article $article): View
+    public function edit(Article $article): View|RedirectResponse
     {
+        // 権限チェック（投稿者以外）
+        if ($article->member_id !== auth()->id()) {
+            return redirect()
+                ->route('articles')
+                ->with('error', '編集権限がありません');
+        }
+
         return view('member.articles.edit', compact('article'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  UpdateArticleRequest  $request
+     * @param  Article               $article
+     * @return RedirectResponse
+     */
+    public function update(UpdateArticleRequest $request, Article $article)
+    {
+        // 権限チェック（投稿者以外）
+        if ($article->member_id !== auth()->id()) {
+            return redirect()
+                ->route('articles')
+                ->with('error', '編集権限がありません');
+        }
+
+        // バリデーション済みデータ取得
+        $validated = $request->validated();
+
+        // 更新
+        $article->update([
+            'title'    => $validated['title'],
+            'contents' => $validated['contents'],
+        ]);
+
+        // タグ更新
+        if (array_key_exists('tags', $validated)) {
+            $article->tags()->sync($validated['tags'] ?? []);
+        }
+
+        return redirect()
+            ->route('articles.edit', $article)
+            ->with('success', '記事編集が完了しました');
     }
 }
