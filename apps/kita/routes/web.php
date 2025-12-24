@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberRegisterController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,4 +67,12 @@ Route::middleware('auth')->group(function () {
     // プロフィール編集
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    // パスワード変更
+    Route::get('/password/change', [PasswordController::class, 'edit'])
+        ->name('password.edit');
+    Route::put('/password/change', [PasswordController::class, 'update'])
+        ->name('password.update');
 });
