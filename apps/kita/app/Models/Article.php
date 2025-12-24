@@ -38,7 +38,7 @@ class Article extends Model
      */
     public function member(): BelongsTo
     {
-        return $this->belongsTo(Member::class);
+        return $this->belongsTo(Member::class, 'member_id');
     }
 
     /**
@@ -49,8 +49,8 @@ class Article extends Model
         return $this->belongsToMany(
             ArticleTag::class,
             'article_article_tags', // 中間テーブル名
-            'article_id',          // このモデルの外部キー
-            'article_tag_id'       // 相手モデルの外部キー
+            'article_id',           // このモデルの外部キー
+            'article_tag_id'        // 相手モデルの外部キー
         );
     }
 }

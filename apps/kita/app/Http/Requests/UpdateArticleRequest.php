@@ -25,9 +25,9 @@ class UpdateArticleRequest extends FormRequest
     {
         return [
             'title'   => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string'],
+            'contents' => ['required', 'string'],
             'tags'    => ['nullable', 'array'],
-            'tags.*'  => ['exists:tags,id'],
+            'tags.*'  => ['exists:article_tags,id'],
         ];
     }
 }

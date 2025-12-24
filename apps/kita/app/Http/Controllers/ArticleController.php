@@ -76,7 +76,7 @@ class ArticleController extends Controller
         // フラッシュメッセージ表示
         return redirect()
             ->route('articles.edit', $article->id)
-            ->with('success', true);
+            ->with('success', '記事投稿が完了しました');
     }
 
     /**
@@ -98,14 +98,19 @@ class ArticleController extends Controller
      */
     public function edit(Article $article): View|RedirectResponse
     {
-        // 権限チェック（投稿者以外）
+        // 権限チェック（投稿者以外はリダイレクト）
         if ($article->member_id !== auth()->id()) {
             return redirect()
                 ->route('articles')
                 ->with('error', '編集権限がありません');
         }
 
-        return view('member.articles.edit', compact('article'));
+        // DB から最新のタグ・記事情報を取得
+        $article->refresh();
+        $tags = ArticleTag::all();
+
+        return view('member.articles.edit', compact('article', 'tags'))
+            ->with('update', true);
     }
 
     /**
@@ -117,7 +122,7 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        // 権限チェック（投稿者以外）
+        // 権限チェック（投稿者以外はリダイレクト）
         if ($article->member_id !== auth()->id()) {
             return redirect()
                 ->route('articles')

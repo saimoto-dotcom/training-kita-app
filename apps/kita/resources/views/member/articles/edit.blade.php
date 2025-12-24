@@ -7,17 +7,27 @@
 @endpush
 
 @section('content')
-<h1>記事編集</h1>
 
+{{-- フラッシュメッセージ --}}
 @if (session('success'))
 <div class="alert alert-success">
     <span class="fw-bold fs-5">Success!</span><br>
-    記事投稿が完了しました
+    {{ session('success') }}
+</div>
+@endif
+@if (session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
 </div>
 @endif
 
-<p>{{ Auth::check() ? 'login' : 'guest' }}</p>
-
-<p>※ 表示内容は仮</p>
+{{-- 記事編集フォーム --}}
+<form method="POST" action="{{ route('articles.update', $article) }}">
+    @include('member.articles._form', [
+    'article' => $article,
+    'tags' => $tags,
+    'update' => true
+    ])
+</form>
 
 @endsection
