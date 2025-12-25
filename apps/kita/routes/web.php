@@ -30,7 +30,7 @@ Route::get('/articles', [ArticleController::class, 'index'])
 // 記事関連（ログイン必須）
 Route::middleware('auth')->group(function () {
     Route::resource('articles', ArticleController::class)
-        ->only(['create', 'store', 'edit', 'update']);
+        ->only(['create', 'store', 'edit', 'update', 'destroy']);
 });
 
 // 記事詳細（未ログイン可）

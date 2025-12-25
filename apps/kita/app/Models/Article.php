@@ -53,4 +53,12 @@ class Article extends Model
             'article_tag_id'        // 相手モデルの外部キー
         );
     }
+
+    /**
+     * コメントとのリレーション
+     */
+    public function comments()
+    {
+        return $this->hasMany(ArticleComment::class);
+    }
 }

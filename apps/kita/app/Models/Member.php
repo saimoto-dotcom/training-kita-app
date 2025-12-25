@@ -38,4 +38,12 @@ class Member extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * コメントとのリレーション
+     */
+    public function articleComments()
+    {
+        return $this->hasMany(ArticleComment::class);
+    }
 }

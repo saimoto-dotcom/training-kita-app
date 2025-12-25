@@ -87,6 +87,15 @@ class ArticleController extends Controller
      */
     public function show(Article $article): View
     {
+        $article->load([
+            'member',
+            'tags',
+            'comments' => function ($query) {
+                $query->latest(); // created_at desc
+            },
+            'comments.member',
+        ]);
+
         return view('member.articles.show', compact('article'));
     }
 
