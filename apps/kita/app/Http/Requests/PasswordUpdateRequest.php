@@ -33,4 +33,16 @@ class PasswordUpdateRequest extends FormRequest
             ],
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'password.confirmed' => '確認用パスワードが一致しません',
+        ];
+    }
 }

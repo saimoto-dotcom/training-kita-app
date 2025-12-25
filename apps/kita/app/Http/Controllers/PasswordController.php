@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class PasswordController extends Controller
 {
     /**
-     * Show the profile edit form.
+     * Show the password edit form.
      *
      * @return \Illuminate\Contracts\View\View
      */
@@ -21,7 +21,7 @@ class PasswordController extends Controller
         /** @var \App\Models\Member $member */
         $member = Auth::user();
 
-        return view('member.profile.edit', compact('member'));
+        return view('member.password.change', compact('member'));
     }
 
     /**
@@ -35,8 +35,12 @@ class PasswordController extends Controller
         /** @var Member $member */
         $member = auth()->user();
 
+        // バリデーション済みデータを取得
+        $validated = $request->validated();
+
+        // 更新
         $member->update([
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($validated['password']),
         ]);
 
         return redirect('/profile')

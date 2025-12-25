@@ -34,9 +34,13 @@ class ProfileController extends Controller
         /** @var Member $member */
         $member = Auth::user();
 
+        // バリデーション済みデータを取得
+        $validated = $request->validated();
+
+        // 更新
         $member->update([
-            'name'  => $request->name,
-            'email' => $request->email,
+            'name'  => $validated['name'],
+            'email' => $validated['email'],
         ]);
 
         return redirect('/profile')

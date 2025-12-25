@@ -51,4 +51,16 @@ class ProfileUpdateRequest extends FormRequest
             'email' => trim((string) $this->email),
         ]);
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'email.unique'   => 'そのメールアドレスは既に使用されています。',
+        ];
+    }
 }

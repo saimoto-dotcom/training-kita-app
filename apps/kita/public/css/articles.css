@@ -79,22 +79,42 @@
     margin-top: 24px;
 }
 
-/* 記事投稿 ボタン */ 
+/* =========================
+   プロフィール編集
+   ========================= */
+/* プロフィール編集 タイトルと区切り線 */
+.profile-title {
+    font-size: 2rem;
+    display: inline-block;
+    border-bottom: 2px solid #888888;
+    padding-bottom: 1.0rem;
+    margin-bottom: 1.5rem;
+}
+
+/* タイトル下のライン（カードの境界風） */
+.profile-hr {
+    border: none; /* 元の hr を消す */
+    margin-bottom: 1.5rem;
+}
+
+/* 入力フォーム 高さ調整 */
+.form-control {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* =========================
+   ボタンの共通スタイル
+   ========================= */
 .btn-article-submit {
     background-color: #28a745;
     border-color: #28a745;
     color: #fff;
-
     padding: 8px 24px;
     border-radius: 9999px;
 }
 
-.btn-article-submit:hover {
-    background-color: #218838;
-    border-color: #218838;
-    color: #fff;
-}
-
+.btn-article-submit:hover,
 .btn-article-submit:focus,
 .btn-article-submit:active {
     background-color: #218838;
