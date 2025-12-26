@@ -156,4 +156,28 @@ class ArticleController extends Controller
             ->route('articles.edit', $article)
             ->with('success', '記事編集が完了しました');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Article  $article
+     * @return RedirectResponse
+     */
+    public function destroy(Article $article): RedirectResponse
+    {
+        // 権限チェック（投稿者以外は記事詳細へ）
+        if ($article->member_id !== auth()->id()) {
+            return redirect()
+                ->route('articles.show', $article)
+                ->with('error', '削除権限がありません');
+        }
+
+        // 削除処理
+        $article->delete();
+
+        // 記事一覧へリダイレクト
+        return redirect()
+            ->route('articles')
+            ->with('success', '記事を削除しました');
+    }
 }

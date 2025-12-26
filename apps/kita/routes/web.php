@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberRegisterController;
 use App\Http\Controllers\PasswordController;
@@ -31,6 +32,9 @@ Route::get('/articles', [ArticleController::class, 'index'])
 Route::middleware('auth')->group(function () {
     Route::resource('articles', ArticleController::class)
         ->only(['create', 'store', 'edit', 'update', 'destroy']);
+
+    Route::post('/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
 });
 
 // 記事詳細（未ログイン可）
