@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
@@ -79,4 +80,23 @@ Route::middleware('auth')->group(function () {
         ->name('password.edit');
     Route::put('/password/change', [PasswordController::class, 'update'])
         ->name('password.update');
+});
+
+// =========================
+// 管理画面
+// =========================
+Route::middleware('guest:admin')->group(function () {
+    // 管理者ログイン画面表示
+    Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])
+        ->name('admin.login');
+
+    // 管理者ログイン処理
+    Route::post('/admin/login', [AdminLoginController::class, 'login'])
+        ->name('admin.login.submit');
+});
+
+Route::middleware('auth:admin')->group(function () {
+    // 管理者ログアウト
+    Route::get('/admin/logout', [AdminLoginController::class, 'logout'])
+        ->name('admin.logout');
 });
