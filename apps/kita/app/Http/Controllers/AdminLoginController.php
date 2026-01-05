@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminLoginRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminLoginController extends Controller
@@ -20,7 +21,7 @@ class AdminLoginController extends Controller
         }
 
         // ログイン画面を表示
-        return view('admin.auth.login');
+        return view('admin.login');
     }
 
     /**
@@ -52,15 +53,12 @@ class AdminLoginController extends Controller
     /**
      * Log the admin out of the application.
      *
-     * @param  \App\Http\Requests\AdminLoginRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function logout(AdminLoginRequest $request)
+    public function logout(Request $request)
     {
-        // 管理者ガードでログアウト
         Auth::guard('admin')->logout();
-
-        // セッション破棄 + CSRFトークン再生成
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

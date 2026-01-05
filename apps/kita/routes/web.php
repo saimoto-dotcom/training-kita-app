@@ -92,11 +92,16 @@ Route::middleware('guest:admin')->group(function () {
 
     // 管理者ログイン処理
     Route::post('/admin/login', [AdminLoginController::class, 'login'])
-        ->name('admin.login.submit');
+        ->name('admin.login.store');
 });
 
 Route::middleware('auth:admin')->group(function () {
     // 管理者ログアウト
     Route::get('/admin/logout', [AdminLoginController::class, 'logout'])
         ->name('admin.logout');
+
+    // 仮ページ
+    Route::get('/admin/admin_users', function () {
+        return view('admin.dashboard'); // 後で AdminUserController に置き換え
+    })->name('admin.dashboard');
 });
