@@ -3258,6 +3258,16 @@ function withinMaxClamp(min, value, max) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.addEventListener('load', function () {
+  var modalEl = document.getElementById('passwordModal');
+  // エラーメッセージ（text-danger）があるか確認
+  if (modalEl && modalEl.querySelector('.text-danger')) {
+    // Mix(Webpack)環境では bootstrap は window 直下か bootstrap 変数にあります
+    var bootstrap = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
+    var modal = new bootstrap.Modal(modalEl);
+    modal.show();
+  }
+});
 
 /***/ }),
 

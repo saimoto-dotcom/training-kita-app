@@ -8,18 +8,6 @@
     color: #212529;
 }
 
-/* タグの青背景と余白 */
-.tag {
-    display: inline-block;
-    background-color: #0d6efd;
-    color: #fff;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.25rem;
-    margin-right: 0.25rem;
-    margin-bottom: 0.25rem;
-    font-size: 0.875rem;
-}
-
 /* 記事ブロックの区切り線 */
 .article-block {
     padding-bottom: 1rem;
@@ -37,8 +25,14 @@
     --bs-pagination-font-size: 0.9rem;
 }
 
-/* ページネーション全体の枠 */
+/* ページネーション */
 .pagination .page-link {
+    min-width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
     border: 1px solid #28a745;
     color: #28a745;
 }
@@ -49,21 +43,9 @@
     color: #fff;
 }
 
-/* 各ページリンク */
-.pagination .page-link {
-    min-width: 38px;
-    height: 38px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    border-color: #b7e4c7;
-}
-
 /* =========================
    記事投稿
    ========================= */
-/* 入力フォーム */ 
 .form-control--green {
     border: 1px solid #7ad03a;
 }
@@ -79,26 +61,105 @@
     margin-top: 24px;
 }
 
-/* 記事投稿 ボタン */ 
+/* =========================
+   プロフィール編集
+   ========================= */
+.profile-title {
+    font-size: 2rem;
+    display: inline-block;
+    border-bottom: 2px solid #888888;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.profile-hr {
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+/* 入力フォーム共通 */
+.form-control {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* =========================
+   ボタン共通
+   ========================= */
 .btn-article-submit {
     background-color: #28a745;
     border-color: #28a745;
     color: #fff;
-
     padding: 8px 24px;
     border-radius: 9999px;
 }
 
-.btn-article-submit:hover {
-    background-color: #218838;
-    border-color: #218838;
-    color: #fff;
-}
-
+.btn-article-submit:hover,
 .btn-article-submit:focus,
 .btn-article-submit:active {
     background-color: #218838;
     border-color: #218838;
     box-shadow: 0 0 0 0.2rem rgba(122, 208, 58, 0.35);
     color: #fff;
+}
+
+.btn-article-submit.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-article-submit.btn-danger:hover,
+.btn-article-submit.btn-danger:focus,
+.btn-article-submit.btn-danger:active {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* 丸ボタン形状だけを付与するクラス */
+.btn-rounded {
+    border-radius: 9999px;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.5rem 1.5rem;
+}
+
+/* =========================
+   タグ表示　共通
+   ========================= */
+.tag {
+    background-color: #0d6efd;
+    color: #fff;
+    padding: 0.25rem 0.6rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* =========================
+   記事詳細
+   ========================= */
+/* タイトル行 */
+.article-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+/* コメントセクションタイトルの基本 */
+.comment-section-title {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+/* 親の card (p-4) の余白を打ち消す共通クラス */
+.card.p-4 .full-width-edge {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+}
+
+/* タイトル専用：線を広げつつ文字位置を固定 */
+.comment-section-title.full-width-edge {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }

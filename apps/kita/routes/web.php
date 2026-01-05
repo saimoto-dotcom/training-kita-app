@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberRegisterController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +31,10 @@ Route::get('/articles', [ArticleController::class, 'index'])
 // 記事関連（ログイン必須）
 Route::middleware('auth')->group(function () {
     Route::resource('articles', ArticleController::class)
-        ->only(['create', 'store', 'edit']);
+        ->only(['create', 'store', 'edit', 'update', 'destroy']);
+
+    Route::post('/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
 });
 
 // 記事詳細（未ログイン可）
@@ -66,4 +71,10 @@ Route::middleware('auth')->group(function () {
     // プロフィール編集
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    // パスワード変更（処理のみ）
+    Route::put('/password/change', [PasswordController::class, 'update'])
+        ->name('password.update');
 });

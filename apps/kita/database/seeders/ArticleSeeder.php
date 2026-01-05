@@ -15,12 +15,36 @@ class ArticleSeeder extends Seeder
      */
     public function run()
     {
-        // 5個のタグを生成
-        $tags = ArticleTag::factory(5)->create();
+        // タグマスタ（固定）
+        $tagNames = [
+            'Laravel',
+            'PHP',
+            'Eloquent',
+            'ルーティング',
+            '認証',
+            '設計',
+            'テスト',
+            'Docker',
+        ];
 
-        // 記事を生成
+        // タグを全件登録（重複防止）
+        foreach ($tagNames as $name) {
+            ArticleTag::firstOrCreate([
+                'name' => $name,
+            ]);
+        }
+
+        // 登録済みタグを取得
+        $tags = ArticleTag::all();
+
+        // 記事を生成して、タグをランダムに紐付け
         Article::factory(50)->create()->each(function ($article) use ($tags) {
-            // 各記事にランダムにタグを紐付け（1〜5個）
+            // 20% はタグなしの記事にする
+            if (rand(1, 5) === 1) {
+                return;
+            }
+
+            // タグあり（1〜5個）
             $article->tags()->attach(
                 $tags->random(rand(1, 5))->pluck('id')->toArray()
             );
