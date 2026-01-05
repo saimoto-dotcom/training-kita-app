@@ -5,25 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PasswordUpdateRequest;
 use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PasswordController extends Controller
 {
-    /**
-     * Show the password edit form.
-     *
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function edit(Request $request)
-    {
-        /** @var \App\Models\Member $member */
-        $member = Auth::user();
-
-        return view('member.password.change', compact('member'));
-    }
-
     /**
      * Update the authenticated user's password.
      *
