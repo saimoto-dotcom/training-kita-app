@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
@@ -83,23 +84,28 @@ Route::middleware('auth')->group(function () {
 // =========================
 // 管理画面
 // =========================
-Route::middleware('guest:admin')->group(function () {
-    // 管理者ログイン画面表示
-    Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])
-        ->name('admin.login');
+Route::prefix('admin')
+    ->middleware('guest:admin')
+    ->group(function () {
 
-    // 管理者ログイン処理
-    Route::post('/admin/login', [AdminLoginController::class, 'login'])
-        ->name('admin.login.store');
-});
+        // 管理者ログイン画面
+        Route::get('login', [AdminLoginController::class, 'showLoginForm'])
+            ->name('admin.login');
 
-Route::middleware('auth:admin')->group(function () {
-    // 管理者ログアウト
-    Route::get('/admin/logout', [AdminLoginController::class, 'logout'])
-        ->name('admin.logout');
+        // 管理者ログイン処理
+        Route::post('login', [AdminLoginController::class, 'login'])
+            ->name('admin.login.store');
+    });
 
-    // 仮ページ
-    Route::get('/admin/admin_users', function () {
-        return view('admin.dashboard'); // 後で AdminUserController に置き換え
-    })->name('admin.dashboard');
-});
+Route::prefix('admin')
+    ->middleware('auth:admin')
+    ->group(function () {
+
+        // 管理者ログアウト
+        Route::get('logout', [AdminLoginController::class, 'logout'])
+            ->name('admin.logout');
+
+        // 管理者管理（CRUD）
+        Route::resource('admin_users', AdminUserController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    });
