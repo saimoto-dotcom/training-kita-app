@@ -74,9 +74,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
 
-    // パスワード変更
-    Route::get('/password/change', [PasswordController::class, 'edit'])
-        ->name('password.edit');
+    // パスワード変更（処理のみ）
     Route::put('/password/change', [PasswordController::class, 'update'])
         ->name('password.update');
 });

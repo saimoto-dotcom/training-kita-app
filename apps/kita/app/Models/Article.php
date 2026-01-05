@@ -59,6 +59,8 @@ class Article extends Model
      */
     public function comments()
     {
-        return $this->hasMany(ArticleComment::class);
+        // 全画面共通想定としてModelにソートを定義
+        return $this->hasMany(ArticleComment::class)
+            ->orderBy('created_at', 'desc');
     }
 }

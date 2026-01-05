@@ -87,15 +87,6 @@ class ArticleController extends Controller
      */
     public function show(Article $article): View
     {
-        $article->load([
-            'member',
-            'tags',
-            'comments' => function ($query) {
-                $query->latest(); // created_at desc
-            },
-            'comments.member',
-        ]);
-
         return view('member.articles.show', compact('article'));
     }
 
@@ -114,8 +105,7 @@ class ArticleController extends Controller
                 ->with('error', '編集権限がありません');
         }
 
-        // DB から最新のタグ・記事情報を取得
-        $article->refresh();
+        // DBからタグを取得
         $tags = ArticleTag::all();
 
         return view('member.articles.edit', compact('article', 'tags'))
