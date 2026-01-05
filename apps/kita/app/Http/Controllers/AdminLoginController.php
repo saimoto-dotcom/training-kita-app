@@ -58,7 +58,9 @@ class AdminLoginController extends Controller
      */
     public function logout(Request $request)
     {
+        // 'admin'ガードを指定してログアウト
         Auth::guard('admin')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
