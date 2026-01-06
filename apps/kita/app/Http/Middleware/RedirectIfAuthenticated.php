@@ -23,7 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // 管理者ガードの場合は管理画面へ、それ以外は記事一覧へ
+                $url = ($guard === 'admin') ? RouteServiceProvider::ADMIN_HOME : RouteServiceProvider::HOME;
+
+                return redirect($url);
             }
         }
 

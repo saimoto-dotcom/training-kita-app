@@ -50,7 +50,9 @@ class LoginController extends Controller
      */
     public function destroy(Request $request)
     {
-        Auth::logout();
+        // 'web'ガードを指定してログアウト
+        Auth::guard('web')->logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

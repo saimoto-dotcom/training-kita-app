@@ -20,6 +20,8 @@ class RouteServiceProvider extends ServiceProvider
     // ログイン後のデフォルト遷移先」を定義
     public const HOME = '/articles';
 
+    public const ADMIN_HOME = '/admin/admin_users'; // 管理者用を追加
+
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      *
