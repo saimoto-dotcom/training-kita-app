@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Consts\AppConsts;
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,17 +24,34 @@ class AdminUserController extends Controller
 
         // クエリ作成
         $adminUsers = AdminUser::query()
-            ->when($lastName !== '', function ($query) use ($lastName) {
-                $query->where('last_name', 'like', "%{$lastName}%");
-            })
-            ->when($firstName !== '', function ($query) use ($firstName) {
-                $query->where('first_name', 'like', "%{$firstName}%");
-            })
-            ->when($email !== '', function ($query) use ($email) {
-                $query->where('email', 'like', "%{$email}%");
-            })
+            ->when(
+                $request->filled('last_name'),
+                fn ($q) => $q->where(
+                    'last_name',
+                    'like',
+                    '%'.trim($request->last_name).'%'
+                )
+            )
+            ->when(
+                $request->filled('first_name'),
+                fn ($q) => $q->where(
+                    'first_name',
+                    'like',
+                    '%'.trim($request->first_name).'%'
+                )
+            )
+            ->when(
+                $request->filled('email'),
+                fn ($q) => $q->where(
+                    'email',
+                    'like',
+                    '%'.trim($request->email).'%'
+                )
+            )
             ->orderBy('updated_at', 'desc')
-            ->paginate(AppConsts::ARTICLES_PER_PAGE);
+            ->paginate(10)
+            // 検索条件保持
+            ->appends($request->query());
 
         // Blade に渡す
         return view('admin.admin_users.index', compact(

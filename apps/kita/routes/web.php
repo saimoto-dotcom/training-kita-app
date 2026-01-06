@@ -108,4 +108,14 @@ Route::prefix('admin')
         // 管理者管理（CRUD）
         Route::resource('admin_users', AdminUserController::class)
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+        // 会員管理（仮ページ）
+        Route::get('users', function () {
+            return '会員管理画面（実装予定）';
+        })->name('users.index');
+
+        // タグ管理（仮ページ）
+        Route::get('article_tags', function () {
+            return 'タグ管理画面（実装予定）';
+        })->name('article_tags.index');
     });
