@@ -59,3 +59,26 @@
 .admin-login-btn button:hover {
     background-color: #0069d9;
 }
+
+
+/* =========================
+   管理画面
+   ========================= */
+/* 必須ラベルのスタイル */
+.label-required::after {
+    content: "必須";
+    background-color: #dc3545;
+    color: #ffffff;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+/* スクロールしてもボタンが追従 */
+.sticky-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1rem;
+}

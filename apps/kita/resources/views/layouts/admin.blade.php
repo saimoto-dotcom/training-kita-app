@@ -25,6 +25,13 @@
 
     {{-- 各ページの中身 --}}
     <main class="admin-main">
+        {{-- フラッシュメッセージ --}}
+        @if (session('success'))
+        <div class="alert alert-success mb-3">
+            {{ session('success') }}
+        </div>
+        @endif
+
         @yield('content')
     </main>
 </body>

@@ -15,37 +15,49 @@
     {{-- 検索フォーム --}}
     <div class="card mb-4">
         <div class="card-body">
-            {{ Form::open(['route' => 'admin_users.index', 'method' => 'get']) }}
-            <div class="row g-3">
-                <div class="col-md-4">
-                    {{ Form::label('last_name', '姓', ['class' => 'form-label']) }}
-                    {{ Form::text('last_name', request('last_name'), [
-                            'class' => 'form-control',
-                            'maxlength' => 255
-                        ]) }}
+            <form method="GET" action="{{ route('admin_users.index') }}">
+                <div class="row g-3">
+                    {{-- 姓 --}}
+                    <div class="col-md-4">
+                        <label for="last_name" class="form-label">姓</label>
+                        <input type="text"
+                            name="last_name"
+                            id="last_name"
+                            class="form-control"
+                            value="{{ request('last_name') }}"
+                            maxlength="255">
+                    </div>
+
+                    {{-- 名 --}}
+                    <div class="col-md-4">
+                        <label for="first_name" class="form-label">名</label>
+                        <input type="text"
+                            name="first_name"
+                            id="first_name"
+                            class="form-control"
+                            value="{{ request('first_name') }}"
+                            maxlength="255">
+                    </div>
+
+                    {{-- メールアドレス --}}
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">メールアドレス</label>
+                        <input type="text"
+                            name="email"
+                            id="email"
+                            class="form-control"
+                            value="{{ request('email') }}"
+                            maxlength="255">
+                    </div>
                 </div>
 
-                <div class="col-md-4">
-                    {{ Form::label('first_name', '名', ['class' => 'form-label']) }}
-                    {{ Form::text('first_name', request('first_name'), [
-                            'class' => 'form-control',
-                            'maxlength' => 255
-                        ]) }}
+                {{-- 検索ボタン --}}
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-5">
+                        検索
+                    </button>
                 </div>
-
-                <div class="col-md-4">
-                    {{ Form::label('email', 'メールアドレス', ['class' => 'form-label']) }}
-                    {{ Form::text('email', request('email'), [
-                            'class' => 'form-control',
-                            'maxlength' => 255
-                        ]) }}
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                {{ Form::submit('検索', ['class' => 'btn btn-primary px-5']) }}
-            </div>
-            {{ Form::close() }}
+            </form>
         </div>
     </div>
 

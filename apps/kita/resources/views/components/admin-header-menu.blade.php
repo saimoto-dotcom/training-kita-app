@@ -1,7 +1,7 @@
 <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
 
-        {{-- ロゴ：ルート名 admin_users.index を想定しています --}}
+        {{-- ロゴ --}}
         <a class="navbar-brand" href="{{ route('admin_users.index') }}">
             Kita
         </a>
@@ -33,7 +33,7 @@
 
             </ul>
 
-            {{-- ログアウト：GETリクエストのリンク形式 --}}
+            {{-- ログアウト --}}
             <div class="d-flex">
                 <a href="{{ route('admin.logout') }}" class="btn btn-outline-light btn-sm">
                     ログアウト

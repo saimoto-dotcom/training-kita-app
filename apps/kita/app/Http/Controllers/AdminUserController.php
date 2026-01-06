@@ -102,13 +102,10 @@ class AdminUserController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit(int $id): Response
+    public function edit(int $id)
     {
-        abort(501);
+        return view('admin.admin_users.edit', compact('id'));
     }
 
     /**
