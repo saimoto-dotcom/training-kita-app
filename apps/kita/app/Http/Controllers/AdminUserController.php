@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\AppConsts;
+use App\Http\Requests\AdminUserStoreRequest;
 use App\Models\AdminUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 class AdminUserController extends Controller
@@ -49,7 +52,7 @@ class AdminUserController extends Controller
                 )
             )
             ->orderBy('updated_at', 'desc')
-            ->paginate(10)
+            ->paginate(AppConsts::ARTICLES_PER_PAGE)
             // 検索条件保持
             ->appends($request->query());
 
@@ -63,24 +66,38 @@ class AdminUserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new article.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function create(): Response
+    public function create(): View
     {
-        abort(501);
+        return view('admin.admin_users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\AdminUserStoreRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request): Response
+    public function store(AdminUserStoreRequest $request)
     {
-        abort(501);
+        // バリデーション済みデータのみ取得
+        $validated = $request->validated();
+
+        // DB登録処理
+        $adminUser = AdminUser::create([
+            'last_name'  => trim($validated['last_name']),
+            'first_name' => trim($validated['first_name']),
+            'email'      => trim($validated['email']),
+            'password'   => Hash::make($validated['password']),
+        ]);
+
+        // 編集画面へリダイレクト + フラッシュメッセージ
+        return redirect()
+            ->route('admin_users.edit', $adminUser->id)
+            ->with('success', '登録処理が完了しました');
     }
 
     /**
