@@ -8,7 +8,6 @@ use App\Http\Requests\AdminUserUpdateRequest;
 use App\Models\AdminUser;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -107,7 +106,10 @@ class AdminUserController extends Controller
      */
     public function edit(int $id)
     {
-        return view('admin.admin_users.edit', compact('id'));
+        // IDでモデルを取得
+        $admin_user = AdminUser::findOrFail($id);
+
+        return view('admin.admin_users.edit', compact('admin_user'));
     }
 
     /**
@@ -141,11 +143,17 @@ class AdminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  AdminUser  $admin_user
+     * @return RedirectResponse
      */
-    public function destroy(int $id): Response
+    public function destroy(AdminUser $admin_user): RedirectResponse
     {
-        abort(501);
+        // 削除処理
+        $admin_user->delete();
+
+        // 管理者一覧へリダイレクト
+        return redirect()
+            ->route('admin_users.index')
+            ->with('success', '削除処理が完了しました');
     }
 }

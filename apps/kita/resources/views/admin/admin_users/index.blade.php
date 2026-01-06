@@ -12,6 +12,13 @@
     {{-- ページタイトル --}}
     <h2 class="mb-4">管理者管理</h2>
 
+    {{-- フラッシュメッセージ --}}
+    @if (session('success'))
+    <div class="alert alert-success mb-3">
+        {{ session('success') }}
+    </div>
+    @endif
+
     {{-- 検索フォーム --}}
     <div class="card mb-4">
         <div class="card-body">
@@ -71,7 +78,7 @@
     </div>
     @endif
 
-    {{-- ページネーション（← 正しい場所） --}}
+    {{-- ページネーション --}}
     @if($adminUsers->hasPages())
     <div class="mb-3">
         {{ $adminUsers->links('pagination::bootstrap-4') }}
