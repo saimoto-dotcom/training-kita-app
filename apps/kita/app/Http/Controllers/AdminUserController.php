@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Consts\AppConsts;
 use App\Http\Requests\AdminUserStoreRequest;
+use App\Http\Requests\AdminUserUpdateRequest;
 use App\Models\AdminUser;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -111,13 +113,29 @@ class AdminUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param AdminUserUpdateRequest $request
+     * @param AdminUser $admin_user
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, int $id): Response
+    public function update(AdminUserUpdateRequest $request, AdminUser $admin_user): RedirectResponse
     {
-        abort(501);
+        // バリデーション済みデータ取得
+        $validated = $request->validated();
+
+        // 更新データを整形
+        $data = [
+            'last_name'  => $validated['last_name'],
+            'first_name' => $validated['first_name'],
+            'email'      => $validated['email'],
+        ];
+
+        // 更新実行
+        $admin_user->update($data);
+
+        // 成功時は同画面にリダイレクト＋フラッシュメッセージ
+        return redirect()
+            ->route('admin_users.edit', $admin_user->id)
+            ->with('success', '更新処理が完了しました');
     }
 
     /**
