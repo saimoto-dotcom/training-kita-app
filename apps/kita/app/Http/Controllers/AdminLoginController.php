@@ -17,7 +17,7 @@ class AdminLoginController extends Controller
     {
         // 管理者がすでにログインしている場合は管理画面へ
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin_users.index');
         }
 
         // ログイン画面を表示
@@ -47,7 +47,7 @@ class AdminLoginController extends Controller
         $request->session()->regenerate();
 
         // ログイン
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin_users.index');
     }
 
     /**

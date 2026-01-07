@@ -20,11 +20,13 @@ class AdminUserFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create('ja_JP');
+
         return [
-            'first_name' => 'Admin',
-            'last_name' => 'User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'last_name'  => $faker->lastName(),
+            'first_name' => $faker->firstName(),
+            'email'      => $this->faker->unique()->safeEmail(),
+            'password'   => Hash::make('password'),
         ];
     }
 }

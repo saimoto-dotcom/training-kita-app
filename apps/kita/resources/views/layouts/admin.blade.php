@@ -18,6 +18,11 @@
 </head>
 
 <body>
+    {{-- 管理者共通ヘッダー --}}
+    @auth
+    <x-admin-header-menu />
+    @endauth
+
     {{-- 各ページの中身 --}}
     <main class="admin-main">
         @yield('content')
