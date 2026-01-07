@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -46,16 +45,5 @@ class Member extends Authenticatable
     public function articleComments()
     {
         return $this->hasMany(ArticleComment::class);
-    }
-
-    /**
-     * 作成日時の降順でソートするスコープ
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeLatestRegistered(Builder $query): Builder
-    {
-        return $query->orderBy('created_at', 'desc');
     }
 }
