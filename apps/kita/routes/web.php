@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleTagController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
@@ -114,8 +115,7 @@ Route::prefix('admin')
         Route::get('users', [MemberController::class, 'index'])
             ->name('users.index');
 
-        // タグ管理（仮ページ）
-        Route::get('article_tags', function () {
-            return 'タグ管理画面（実装予定）';
-        })->name('article_tags.index');
+        // タグ管理
+        Route::resource('article_tags', ArticleTagController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     });

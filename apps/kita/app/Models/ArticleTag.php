@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -35,5 +36,16 @@ class ArticleTag extends Model
             'article_tag_id',      // このモデルの外部キー
             'article_id'           // 相手モデルの外部キー
         );
+    }
+
+    /**
+     * 作成日時の降順でソートするスコープ
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeLatestRegistered(Builder $query): Builder
+    {
+        return $query->orderBy('created_at', 'desc');
     }
 }
