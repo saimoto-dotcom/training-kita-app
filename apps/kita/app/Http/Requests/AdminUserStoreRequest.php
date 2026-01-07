@@ -30,4 +30,16 @@ class AdminUserStoreRequest extends FormRequest
             'password'   => ['required', 'string', 'min:8', 'max:255', 'confirmed'],
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'last_name'  => trim($this->last_name ?? ''),
+            'first_name' => trim($this->first_name ?? ''),
+            'email'      => trim($this->email ?? ''),
+        ]);
+    }
 }

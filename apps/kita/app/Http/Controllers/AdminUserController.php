@@ -26,38 +26,25 @@ class AdminUserController extends Controller
         $firstName = trim($request->query('first_name', ''));
         $email = trim($request->query('email', ''));
 
-        // クエリ作成
-        $adminUsers = AdminUser::query()
-            ->when(
-                $request->filled('last_name'),
-                fn ($q) => $q->where(
-                    'last_name',
-                    'like',
-                    '%'.trim($request->last_name).'%'
-                )
-            )
-            ->when(
-                $request->filled('first_name'),
-                fn ($q) => $q->where(
-                    'first_name',
-                    'like',
-                    '%'.trim($request->first_name).'%'
-                )
-            )
-            ->when(
-                $request->filled('email'),
-                fn ($q) => $q->where(
-                    'email',
-                    'like',
-                    '%'.trim($request->email).'%'
-                )
-            )
+        $adminUsers = AdminUser::query();
+
+        if ($lastName !== '') {
+            $adminUsers->where('last_name', 'LIKE', "%{$lastName}%");
+        }
+
+        if ($firstName !== '') {
+            $adminUsers->where('first_name', 'LIKE', "%{$firstName}%");
+        }
+
+        if ($email !== '') {
+            $adminUsers->where('email', 'LIKE', "%{$email}%");
+        }
+
+        $adminUsers = $adminUsers
             ->orderBy('updated_at', 'desc')
             ->paginate(AppConsts::ARTICLES_PER_PAGE)
-            // 検索条件保持
             ->appends($request->query());
 
-        // Blade に渡す
         return view('admin.admin_users.index', compact(
             'adminUsers',
             'lastName',
@@ -89,9 +76,9 @@ class AdminUserController extends Controller
 
         // DB登録処理
         $adminUser = AdminUser::create([
-            'last_name'  => trim($validated['last_name']),
-            'first_name' => trim($validated['first_name']),
-            'email'      => trim($validated['email']),
+            'last_name'  => $validated['last_name'],
+            'first_name' => $validated['first_name'],
+            'email'      => $validated['email'],
             'password'   => Hash::make($validated['password']),
         ]);
 
