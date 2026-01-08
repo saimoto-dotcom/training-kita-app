@@ -119,6 +119,9 @@ class ArticleTagController extends Controller
      */
     public function destroy(ArticleTag $articleTag): RedirectResponse
     {
+        // 記事との紐付けを削除（中間テーブル）
+        $articleTag->articles()->detach();
+
         // 削除処理
         $articleTag->delete();
 
