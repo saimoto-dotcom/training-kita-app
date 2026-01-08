@@ -95,3 +95,27 @@ input[readonly] {
     font-weight: 500;
 }
 
+
+/* =========================
+   タグ管理画面
+   ========================= */
+/* テーブルの列幅定義 */
+.table-col-id {
+    width: 80px;
+}
+
+.table-col-datetime {
+    width: 200px;
+}
+
+.table-col-action {
+    width: 120px;
+}
+
+/* * 画面サイズが小さい時は固定幅を解除する設定
+ */
+@media (max-width: 768px) {
+    .table-col-datetime {
+        width: 150px;
+    }
+}

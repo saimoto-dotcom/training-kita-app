@@ -16,22 +16,24 @@ class MemberController extends Controller
      */
     public function index(MemberSearchRequest $request)
     {
-        // モデルで定義したスコープを呼び出す
+        // 検索条件取得
+        $name = $request->query('name', '');
+        $email = $request->query('email', '');
+
+        // クエリ作成
         $query = Member::query()
-            ->latestRegistered();
+            ->orderBy('created_at', 'desc'); // 登録日順（新しい順）
 
-        // ユーザー名での検索
-        $query->when(
-            $request->filled('name'),
-            fn ($q) => $q->where('name', 'like', "%{$request->name}%")
-        );
+        // 条件追加
+        if ($name !== '') {
+            $query->where('name', 'like', "%{$name}%");
+        }
 
-        // メールアドレスでの検索
-        $query->when(
-            $request->filled('email'),
-            fn ($q) => $q->where('email', 'like', "%{$request->email}%")
-        );
+        if ($email !== '') {
+            $query->where('email', 'like', "%{$email}%");
+        }
 
+        // ページネーション
         $members = $query->paginate(AppConsts::ARTICLES_PER_PAGE)
             ->appends($request->query());
 

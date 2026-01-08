@@ -25,6 +25,10 @@ class ArticleSeeder extends Seeder
             '設計',
             'テスト',
             'Docker',
+            'HTML',
+            'CSS',
+            'HTTP',
+            'Models',
         ];
 
         // タグを全件登録（重複防止）

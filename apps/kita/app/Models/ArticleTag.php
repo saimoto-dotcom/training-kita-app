@@ -31,7 +31,7 @@ class ArticleTag extends Model
     {
         return $this->belongsToMany(
             Article::class,
-            'article_article_tag', // 中間テーブル名
+            'article_article_tags', // 中間テーブル名
             'article_tag_id',      // このモデルの外部キー
             'article_id'           // 相手モデルの外部キー
         );
