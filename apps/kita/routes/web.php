@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberRegisterController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
@@ -109,10 +110,9 @@ Route::prefix('admin')
         Route::resource('admin_users', AdminUserController::class)
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
 
-        // 会員管理（仮ページ）
-        Route::get('users', function () {
-            return '会員管理画面（実装予定）';
-        })->name('users.index');
+        // 会員管理
+        Route::get('users', [MemberController::class, 'index'])
+            ->name('users.index');
 
         // タグ管理（仮ページ）
         Route::get('article_tags', function () {
