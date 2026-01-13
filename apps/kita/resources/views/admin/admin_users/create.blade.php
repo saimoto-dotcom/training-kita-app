@@ -7,118 +7,123 @@
 @endpush
 
 @section('content')
-<div class="container py-4">
-    <h2 class="mb-4 fs-3">管理者管理 - 新規登録</h2>
+<h2 class="mb-4 fs-3">管理者管理 - 新規登録</h2>
 
-    {{-- 入力エラー（バリデーション） --}}
-    @if ($errors->any())
-    <div class="alert alert-danger mb-3">
-        入力内容に不備があります。各項目をご確認ください。
-    </div>
-    @endif
+{{-- 入力エラー（バリデーション） --}}
+@if ($errors->any())
+<div class="alert alert-danger shadow-sm">
+    <h5><i class="icon fas fa-ban"></i> Error!</h5>
+    入力内容に不備があります。
+</div>
+@endif
 
-    <form action="{{ route('admin_users.store') }}"
-        method="POST">
-        @csrf
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card card-outline card-primary shadow-sm">
+            <div class="card-header">
+                <h3 class="card-title">管理者情報の入力</h3>
+                <div class="card-tools">
+                    <a href="{{ route('admin_users.index') }}" class="btn btn-tool">
+                        <i class="fas fa-arrow-left mr-1"></i> 一覧に戻る
+                    </a>
+                </div>
+            </div>
 
-        <div class="row">
-            {{-- 左側：メイン入力フォーム --}}
-            <div class="col-md-9">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body p-4">
+            {{-- Horizontal Form --}}
+            <form action="{{ route('admin_users.store') }}" method="POST" class="form-horizontal">
+                @csrf
+                <div class="card-body">
 
-                        {{-- 姓 --}}
-                        <div class="mb-4">
-                            <label for="last_name"
-                                class="form-label label-required">姓</label>
-                            <input type="text"
-                                name="last_name"
-                                id="last_name"
+                    {{-- 姓 --}}
+                    <div class="form-group row">
+                        <label for="last_name" class="col-sm-3 col-form-label text-sm-right">
+                            <span class="badge badge-danger mr-1">必須</span> 姓
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="last_name" id="last_name"
                                 class="form-control @error('last_name') is-invalid @enderror"
-                                value="{{ old('last_name') }}"
-                                required>
+                                value="{{ old('last_name') }}" placeholder="例：佐藤" required>
                             @error('last_name')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
 
-                        {{-- 名 --}}
-                        <div class="mb-4">
-                            <label for="first_name"
-                                class="form-label label-required">名</label>
-                            <input type="text"
-                                name="first_name"
-                                id="first_name"
+                    {{-- 名 --}}
+                    <div class="form-group row">
+                        <label for="first_name" class="col-sm-3 col-form-label text-sm-right">
+                            <span class="badge badge-danger mr-1">必須</span> 名
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="first_name" id="first_name"
                                 class="form-control @error('first_name') is-invalid @enderror"
-                                value="{{ old('first_name') }}"
-                                required>
+                                value="{{ old('first_name') }}" placeholder="例：京助" required>
                             @error('first_name')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
 
-                        {{-- メールアドレス --}}
-                        <div class="mb-4">
-                            <label for="email"
-                                class="form-label label-required">メールアドレス</label>
-                            <input type="email"
-                                name="email"
-                                id="email"
+                    {{-- メールアドレス --}}
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-3 col-form-label text-sm-right">
+                            <span class="badge badge-danger mr-1">必須</span> メールアドレス
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="email" name="email" id="email"
                                 class="form-control @error('email') is-invalid @enderror"
-                                value="{{ old('email') }}"
-                                required>
+                                value="{{ old('email') }}" placeholder="example@test.com" required>
                             @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
 
-                        {{-- パスワード --}}
-                        <div class="mb-4">
-                            <label for="password"
-                                class="form-label label-required">パスワード</label>
-                            <input type="password"
-                                name="password"
-                                id="password"
+                    <hr class="my-4">
+
+                    {{-- パスワード --}}
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label text-sm-right">
+                            <span class="badge badge-danger mr-1">必須</span> パスワード
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="password" name="password" id="password"
                                 class="form-control @error('password') is-invalid @enderror"
-                                required
-                                minlength="8">
+                                placeholder="8文字以上の半角英数字" required>
                             @error('password')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        {{-- パスワード（確認） --}}
-                        <div class="mb-2">
-                            <label for="password_confirmation"
-                                class="form-label label-required">
-                                パスワード（確認）
-                            </label>
-                            <input type="password"
-                                name="password_confirmation"
-                                id="password_confirmation"
-                                class="form-control"
-                                required
-                                minlength="8">
-                        </div>
-
                     </div>
-                </div>
-            </div>
 
-            {{-- 右側：追従ボタンエリア --}}
-            <div class="col-md-3">
-                <div class="sticky-sidebar">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <button type="submit"
-                                class="btn btn-primary w-100 py-2">
-                                登録する
+                    {{-- パスワード（確認） --}}
+                    <div class="form-group row">
+                        <label for="password_confirmation" class="col-sm-3 col-form-label text-sm-right">
+                            <span class="badge badge-danger mr-1">必須</span> パスワード(確認)
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="password" name="password_confirmation" id="password_confirmation"
+                                class="form-control" placeholder="もう一度入力してください" required>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-8">
+                            <button type="submit" class="btn btn-primary px-5">
+                                <i class="fas fa-save mr-1"></i> 登録する
                             </button>
+                            <a href="{{ route('admin_users.index') }}" class="btn btn-default ml-2">
+                                キャンセル
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 @endsection

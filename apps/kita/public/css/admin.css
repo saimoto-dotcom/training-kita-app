@@ -60,6 +60,34 @@
     background-color: #0069d9;
 }
 
+/* ログイン画面のボックス幅を調整 */
+.login-page .login-box {
+    width: 450px;
+}
+
+/* ロゴのスタイルをリンクなしの状態に合わせて調整 */
+.login-page .login-logo {
+    white-space: nowrap;
+    font-size: 1.8rem;
+    color: #495057; /* AdminLTEの標準的なテキストカラー */
+    font-weight: 300; /* 全体を少し細めにして、Kitaの太字を強調 */
+}
+
+.login-page .login-logo b {
+    color: #333; /* 太字部分はより濃い色に */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 480px) {
+    .login-page .login-box {
+        width: 90%;
+    }
+    .login-page .login-logo {
+        font-size: 1.2rem;
+        white-space: normal;
+    }
+}
+
 /* =========================
    管理画面
    ========================= */
@@ -95,7 +123,6 @@ input[readonly] {
     font-weight: 500;
 }
 
-
 /* =========================
    タグ管理画面
    ========================= */
@@ -118,4 +145,45 @@ input[readonly] {
     .table-col-datetime {
         width: 150px;
     }
+}
+
+/* =========================
+   サイドバー（ブランドロゴエリア）
+   ========================= */
+
+/* ロゴエリア全体のスタイル */
+.main-sidebar .brand-link {
+    padding: 0.8125rem 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid #4b545c !important;
+}
+
+/* ロゴアイコン（シールドなど） */
+.brand-link .brand-icon {
+    opacity: .8;
+    font-size: 1.2rem;
+    margin-left: 12px !important;
+    margin-right: 2px !important; 
+    float: left;
+    line-height: .8;
+}
+
+/* ロゴテキスト（KITA ADMIN） */
+.brand-link .brand-text {
+    font-size: 1.25rem;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-left: 2px !important; /* アイコンとの距離を微調整 */
+}
+
+/* ホバー時の挙動（リンク下線を消して色を変える） */
+.brand-link:hover {
+    text-decoration: none;
+}
+
+.brand-link:hover .brand-text {
+    color: #3c8dbc;
 }

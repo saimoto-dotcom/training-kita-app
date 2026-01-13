@@ -1,44 +1,45 @@
-<header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    {{-- 左側：サイドバー開閉ボタン --}}
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                <i class="fas fa-bars"></i>
+            </a>
+        </li>
+    </ul>
 
-        {{-- ロゴ --}}
-        <a class="navbar-brand" href="{{ route('admin_users.index') }}">
-            Kita
-        </a>
+    {{-- 右側：ユーザー情報とログアウト --}}
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+                href="#"
+                id="userDropdown"
+                role="button"
+                data-toggle="dropdown"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+                <i class="far fa-user mr-1"></i>
+                {{ auth('admin')->user()->last_name }}
+                {{ auth('admin')->user()->first_name }} 様
+            </a>
 
-        {{-- メニュー --}}
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {{-- アニメーションや位置ズレを防ぐための設定を追加 --}}
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"
+                aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
 
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin_users.*') ? 'active' : '' }}"
-                        href="{{ route('admin_users.index') }}">
-                        管理者管理
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
-                        href="{{ route('users.index') }}">
-                        会員管理
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('article_tags.*') ? 'active' : '' }}"
-                        href="{{ route('article_tags.index') }}">
-                        タグ管理
-                    </a>
-                </li>
-
-            </ul>
-
-            {{-- ログアウト --}}
-            <div class="d-flex">
-                <a href="{{ route('admin.logout') }}" class="btn btn-outline-light btn-sm">
-                    ログアウト
+                <a href="#" class="dropdown-item text-center" id="admin-logout-link">
+                    <i class="fas fa-sign-out-alt mr-2"></i> ログアウト
                 </a>
+
+                <form id="admin-logout-form"
+                    action="{{ route('admin.logout') }}"
+                    method="GET"
+                    style="display: none;">
+                    @csrf
+                </form>
             </div>
-        </div>
-    </div>
-</header>
+        </li>
+    </ul>
+</nav>
