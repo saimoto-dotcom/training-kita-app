@@ -79,9 +79,8 @@
     </div>
     @endforeach
 
-    <div class="col-12">
-        {{ $articles->appends(request()->query())->links('pagination::bootstrap-4') }}
-    </div>
+    <!-- ページネーション -->
+    {{ $articles->appends(request()->query())->links('pagination::bootstrap-4') }}
 </div>
 @endsection
 

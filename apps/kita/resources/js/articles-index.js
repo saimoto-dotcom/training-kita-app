@@ -149,13 +149,6 @@ class ArticleManager {
 
         // チェックされている数が0個ならtrue（無効）、1個以上ならfalse（有効）
         bulkButton.disabled = (checkedBoxes.length === 0);
-        
-        // 見た目でも分かりやすくするために、クラスの付け替えもすると親切ですよ
-        if (bulkButton.disabled) {
-            bulkButton.classList.add('opacity-50', 'cursor-not-allowed');
-        } else {
-            bulkButton.classList.remove('opacity-50', 'cursor-not-allowed');
-        }
     }
 }
 
