@@ -7,6 +7,7 @@ use App\Http\Requests\ArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\ArticleTag;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -148,26 +149,69 @@ class ArticleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 指定した記事を削除する
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  Article  $article
-     * @return RedirectResponse
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function destroy(Article $article): RedirectResponse
+    public function destroy(Request $request, Article $article)
     {
-        // 権限チェック（投稿者以外は記事詳細へ）
+        // 権限チェック
         if ($article->member_id !== auth()->id()) {
-            return redirect()
-                ->route('articles.show', $article)
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => '削除権限がありません。',
+                ], 403);
+            }
+
+            return redirect()->route('articles.show', $article)
                 ->with('error', '削除権限がありません');
         }
 
         // 削除処理
         $article->delete();
 
-        // 記事一覧へリダイレクト
-        return redirect()
-            ->route('articles')
+        // Ajax（一覧画面など）からの場合
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => '記事を削除しました。',
+            ], 200);
+        }
+
+        // 普通のフォーム送信（詳細画面など）からの場合
+        return redirect()->route('articles')
             ->with('success', '記事を削除しました');
+    }
+
+    /**
+     * 選択された複数の記事を一括削除する
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return JsonResponse
+     */
+    public function bulkDestroy(Request $request): JsonResponse
+    {
+        // バリデーション（IDの配列が来ているかチェック）
+        $request->validate([
+            'ids'   => ['required', 'array'],
+            'ids.*' => ['integer', 'exists:articles,id'],
+        ]);
+
+        $userId = auth()->id();
+        $ids = $request->input('ids');
+
+        // 自分の記事だけを対象にして一括削除
+        $deletedCount = Article::whereIn('id', $ids)
+            ->where('member_id', $userId)
+            ->delete();
+
+        // 削除された件数を含めて返事をする
+        return response()->json([
+            'success' => true,
+            'message' => $deletedCount.'件の記事を削除しました。',
+        ], 200);
     }
 }

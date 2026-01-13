@@ -34,6 +34,10 @@ Route::get('/articles', [ArticleController::class, 'index'])
 
 // 記事関連（ログイン必須）
 Route::middleware('auth')->group(function () {
+    // Ajax用の一括削除を先に追加
+    Route::post('/articles/bulk-delete', [ArticleController::class, 'bulkDestroy'])
+        ->name('articles.bulk-destroy');
+
     Route::resource('articles', ArticleController::class)
         ->only(['create', 'store', 'edit', 'update', 'destroy']);
 
