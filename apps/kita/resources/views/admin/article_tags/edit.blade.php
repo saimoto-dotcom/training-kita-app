@@ -7,101 +7,105 @@
 @endpush
 
 @section('content')
-<div class="container py-4">
-    <h2 class="mb-4 fs-3">タグ管理 - 更新</h2>
+<h2 class="mb-4 fs-3">タグ管理 - 更新</h2>
 
-    {{-- フラッシュメッセージ --}}
-    @if (session('success'))
-    <div class="alert alert-success mb-3">
-        {{ session('success') }}
-    </div>
-    @endif
+{{-- フラッシュメッセージ --}}
+@if (session('success'))
+<div class="alert alert-success shadow-sm mb-3">
+    <h5><i class="icon fas fa-check"></i> Success!</h5>
+    {{ session('success') }}
+</div>
+@endif
 
-    {{-- 入力エラー（バリデーション） --}}
-    @if ($errors->any())
-    <div class="alert alert-danger mb-3">
-        入力内容に不備があります。各項目をご確認ください。
-    </div>
-    @endif
+{{-- 入力エラー --}}
+@if ($errors->any())
+<div class="alert alert-danger shadow-sm">
+    <h5><i class="icon fas fa-ban"></i> Error!</h5>
+    入力内容に不備があります。
+</div>
+@endif
 
-    <div class="row">
-        {{-- 左側：メインフォーム --}}
-        <div class="col-md-9">
-            <form action="{{ route('article_tags.update', $articleTag->id) }}"
-                method="POST"
-                id="update-form">
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card card-outline card-primary shadow-sm">
+            <div class="card-header">
+                <h3 class="card-title">タグ情報の編集</h3>
+                <div class="card-tools">
+                    <a href="{{ route('article_tags.index') }}" class="btn btn-tool">
+                        <i class="fas fa-arrow-left mr-1"></i> 一覧に戻る
+                    </a>
+                </div>
+            </div>
+
+            {{-- Horizontal Form --}}
+            <form action="{{ route('article_tags.update', $articleTag->id) }}" method="POST" id="update-form" class="form-horizontal">
                 @csrf
                 @method('PUT')
 
-                <div class="card shadow-sm mb-4">
-                    <div class="card-body p-4">
-                        {{-- ID --}}
-                        <div class="mb-4">
-                            <label class="form-label">ID</label>
-                            <input type="text"
-                                class="form-control bg-light"
-                                value="{{ $articleTag->id }}"
-                                readonly>
+                <div class="card-body">
+                    {{-- ID (Readonly) --}}
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label text-sm-right">ID</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control-plaintext font-weight-bold"
+                                value="{{ $articleTag->id }}" readonly>
                         </div>
+                    </div>
 
-                        {{-- タグ名 --}}
-                        <div class="mb-4">
-                            <label for="name"
-                                class="form-label label-required">タグ名</label>
-                            <input type="text"
-                                name="name"
-                                id="name"
+                    {{-- タグ名 --}}
+                    <div class="form-group row">
+                        <label for="name" class="col-sm-3 col-form-label text-sm-right">
+                            <span class="badge badge-danger mr-1">必須</span> タグ名
+                        </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name', $articleTag->name) }}"
-                                required
-                                maxlength="255">
+                                value="{{ old('name', $articleTag->name) }}" required maxlength="255">
                             @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
 
-                        {{-- 更新日時 --}}
-                        <div class="mb-4">
-                            <label class="form-label">更新日時</label>
-                            <input type="text"
-                                class="form-control bg-light"
-                                value="{{ $articleTag->updated_at->format('Y/m/d H:i:s') }}"
-                                readonly>
+                    <hr class="my-4">
+
+                    {{-- 各種日時 --}}
+                    <div class="form-group row text-muted">
+                        <label class="col-sm-3 col-form-label text-sm-right">登録日時</label>
+                        <div class="col-sm-8 col-form-label">
+                            {{ $articleTag->created_at->format('Y/m/d H:i:s') }}
                         </div>
-
-                        {{-- 登録日時 --}}
-                        <div class="mb-0">
-                            <label class="form-label">登録日時</label>
-                            <input type="text"
-                                class="form-control bg-light"
-                                value="{{ $articleTag->created_at->format('Y/m/d H:i:s') }}"
-                                readonly>
+                    </div>
+                    <div class="form-group row text-muted">
+                        <label class="col-sm-3 col-form-label text-sm-right">最終更新</label>
+                        <div class="col-sm-8 col-form-label">
+                            {{ $articleTag->updated_at->format('Y/m/d H:i:s') }}
                         </div>
                     </div>
                 </div>
             </form>
-        </div>
 
-        {{-- 右側：アクションボタンエリア --}}
-        <div class="col-md-3">
-            <div class="sticky-sidebar">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <button type="submit"
-                            form="update-form"
-                            class="btn btn-primary w-100 py-2 mb-3">
-                            更新する
-                        </button>
-
-                        <form method="POST"
-                            action="{{ route('article_tags.destroy', $articleTag->id) }}"
+            {{-- アクションボタン --}}
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{-- 削除フォーム --}}
+                        <form method="POST" action="{{ route('article_tags.destroy', $articleTag->id) }}"
                             onsubmit="return confirm('一度削除すると元に戻せません。\n削除してもよろしいですか？');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger w-100 py-2">
-                                削除する
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-trash-alt mr-1"></i> 削除
                             </button>
                         </form>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        <a href="{{ route('article_tags.index') }}" class="btn btn-default mr-2">
+                            キャンセル
+                        </a>
+                        <button type="submit" form="update-form" class="btn btn-primary px-5">
+                            <i class="fas fa-save mr-1"></i> 更新する
+                        </button>
                     </div>
                 </div>
             </div>

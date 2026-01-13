@@ -13,20 +13,37 @@
 
     <!-- 管理者用 CSS -->
     @stack('page-css')
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
-<body>
-    {{-- 管理者共通ヘッダー --}}
-    @auth
-    <x-admin-header-menu />
-    @endauth
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
 
-    {{-- 各ページの中身 --}}
-    <main class="admin-main">
-        @yield('content')
-    </main>
+        {{-- ヘッダー --}}
+        @auth
+        <x-admin-header-menu />
+        @endauth
+
+        {{-- サイドメニュー --}}
+        @auth
+        @include('layouts.admin-sidebar')
+        @endauth
+
+        {{-- 各ページの中身 --}}
+        <div class="content-wrapper">
+            <section class="content pt-3">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    {{-- 共通JS --}}
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    {{-- 各ページ固有のスクリプト --}}
+    @stack('page-js')
 </body>
 
 </html>
