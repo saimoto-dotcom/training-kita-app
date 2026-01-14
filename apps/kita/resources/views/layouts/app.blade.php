@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{-- CSRFトークンを追加 --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Laravel')</title>
 
@@ -29,6 +31,9 @@
     <main class="container mt-5 pt-4">
         @yield('content')
     </main>
+
+    {{-- 個別ページ JS --}}
+    @stack('page-js')
 </body>
 
 </html>
